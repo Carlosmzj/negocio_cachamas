@@ -125,27 +125,7 @@ if (isset($_GET['whatsapp']) && $_GET['whatsapp'] == '1') {
     <title>Gestión de Ventas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .whatsapp-notification {
-            background: linear-gradient(135deg, #25d366, #128c7e);
-            color: white;
-            border: none;
-        }
-        
-        .whatsapp-notification .btn-close {
-            filter: brightness(0) invert(1);
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-    </style>
+    <link href="/negocio_cachamas/assets/css/style.css" rel="stylesheet">
     
     <?php if ($abrirWhatsApp && !empty($enlaceWhatsApp)): ?>
     <script>
@@ -202,17 +182,17 @@ if (isset($_GET['whatsapp']) && $_GET['whatsapp'] == '1') {
         </div>
     <?php endif; ?>
 
-    <h2 class="text-center">
-        <i class="fas fa-cash-register me-2"></i>
+    <h2 class="section-title text-center w-100">
+        <i class="fas fa-cash-register me-2 text-success"></i>
         Registrar Venta
     </h2>
 
     <div class="row justify-content-center">
         <div class="col-md-6 col-sm-12">
-            <form action="ventas.php" method="POST" class="shadow-lg p-4 bg-white rounded d-flex flex-column gap-3">
-                <div>
+            <form action="ventas.php" method="POST" class="form-container p-4">
+                <div class="mb-3">
                     <label for="id_cliente" class="form-label">
-                        <i class="fas fa-user me-1"></i>Cliente:
+                        <i class="fas fa-user me-1 text-primary"></i>Cliente:
                     </label>
                     <select name="id_cliente" class="form-control" required>
                         <option value="">Seleccionar cliente...</option>
@@ -226,9 +206,9 @@ if (isset($_GET['whatsapp']) && $_GET['whatsapp'] == '1') {
                         ?>
                     </select>
                 </div>
-                <div>
+                <div class="mb-3">
                     <label for="id_lote" class="form-label">
-                        <i class="fas fa-fish me-1"></i>Lote:
+                        <i class="fas fa-fish me-1 text-info"></i>Lote:
                     </label>
                     <select name="id_lote" class="form-control" required>
                         <option value="">Seleccionar lote...</option>
@@ -242,25 +222,25 @@ if (isset($_GET['whatsapp']) && $_GET['whatsapp'] == '1') {
                         ?>
                     </select>
                 </div>
-                <div>
+                <div class="mb-3">
                     <label for="peso_vendido" class="form-label">
-                        <i class="fas fa-weight me-1"></i>Peso vendido (kg):
+                        <i class="fas fa-weight me-1 text-success"></i>Peso vendido (kg):
                     </label>
                     <input type="number" step="0.01" name="peso_vendido" class="form-control" required min="0.01">
                 </div>
-                <div>
+                <div class="mb-3">
                     <label for="precio_por_kg" class="form-label">
-                        <i class="fas fa-dollar-sign me-1"></i>Precio por kg:
+                        <i class="fas fa-dollar-sign me-1 text-success"></i>Precio por kg:
                     </label>
                     <input type="number" step="0.01" name="precio_por_kg" class="form-control" required min="0.01">
                 </div>
-                <div>
+                <div class="mb-3">
                     <label for="fecha_venta" class="form-label">
-                        <i class="fas fa-calendar me-1"></i>Fecha de venta:
+                        <i class="fas fa-calendar me-1 text-danger"></i>Fecha de venta:
                     </label>
                     <input type="date" name="fecha_venta" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>
                 </div>
-                <button type="submit" class="btn btn-success btn-lg w-100">
+                <button type="submit" class="btn btn-success btn-lg w-100 mb-3">
                     <i class="fab fa-whatsapp me-2"></i>
                     Registrar Venta y Notificar por WhatsApp
                 </button>
@@ -273,72 +253,93 @@ if (isset($_GET['whatsapp']) && $_GET['whatsapp'] == '1') {
     </div>
 </div>
 
-<h2 class="text-center mt-4">Lista de Ventas</h2>
+<h2 class="section-title text-center w-100 mt-5" style=" margin-left:10%;">
+    <i class="fa-solid fa-money-bill-1-wave text-success"></i>                    
+    Lista de Ventas
+</h2>
 
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark text-center">
-            <tr>
-                <th>ID</th>
-                <th>Cliente</th>
-                <th>Lote</th>
-                <th>Peso Vendido</th>
-                <th>Precio por kg</th>
-                <th>Fecha</th>
-                <th>Total</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody class="text-center">
-            <?php
-            $stmt = $conexion->prepare("SELECT ventas.*, clientes.nombre AS cliente, lotes.nombre AS lote 
-                                        FROM ventas 
-                                        JOIN clientes ON ventas.id_cliente = clientes.id 
-                                        JOIN lotes ON ventas.id_lote = lotes.id
-                                        ORDER BY fecha_venta DESC");
-            $stmt->execute();
-            $ventas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+<div class="table-container" style="width: 85%; margin:auto;">
+    <div class="table-responsive">
+        <table class="table table-bordered mb-0">
+            <thead class="text-center text-white">
+                <tr>
+                    <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                    <th>Cliente</th>
+                    <th><i class="fas fa-tag me-1"></i> Lote</th>
+                    <th><i class="fas fa-weight me-1"></i> Peso Vendido</th>
+                    <th><i class='fa-solid fa-coins'></i> Precio por kg</th>
+                    <th><i class="fas fa-calendar-alt me-1"></i> Fecha</th>
+                    <th><i class="fa-solid fa-equals"></i> Total</th>
+                    <th><i class="fas fa-cogs me-1"></i> Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <?php
+                $stmt = $conexion->prepare("SELECT ventas.*, clientes.nombre AS cliente, lotes.nombre AS lote 
+                                            FROM ventas 
+                                            JOIN clientes ON ventas.id_cliente = clientes.id 
+                                            JOIN lotes ON ventas.id_lote = lotes.id
+                                            ORDER BY fecha_venta DESC");
+                $stmt->execute();
+                $ventas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            $totalGeneral = 0;
-            foreach ($ventas as $venta) {
-                $total = $venta['peso_vendido'] * $venta['precio_por_kg'];
-                $totalGeneral += $total;
+                $totalGeneral = 0;
+                foreach ($ventas as $venta) {
+                    $total = $venta['peso_vendido'] * $venta['precio_por_kg'];
+                    $totalGeneral += $total;
 
-                echo "<tr>
-                        <td class='fw-bold'>{$venta['id']}</td>
-                        <td>{$venta['cliente']}</td>
-                        <td>{$venta['lote']}</td>
-                        <td>{$venta['peso_vendido']} kg</td>
-                        <td>$ " . number_format($venta['precio_por_kg'], 2) . "</td>
-                        <td>{$venta['fecha_venta']}</td>
-                        <td class='fw-bold text-success'>$ " . number_format($total, 2) . "</td>
-                        <td class='d-flex gap-2 justify-content-center'>
-                            <a href='editar_venta.php?id={$venta['id']}' class='btn btn-warning btn-sm'>
-                                <i class='fas fa-edit'></i> Editar
-                            </a>
-                            <a href='eliminar_venta.php?id={$venta['id']}' class='btn btn-danger btn-sm' 
-                               onclick='return confirm(\"¿Eliminar esta venta?\")'>
-                                <i class='fas fa-trash'></i> Eliminar
-                            </a>
-                        </td>
-                    </tr>";
-            }
-            ?>
-        </tbody>
-        <tfoot>
-            <tr class="table-secondary text-center">
-                <th colspan="6">Total de Ventas:</th>
-                <th class="fw-bold text-primary">$ <?php echo number_format($totalGeneral, 2); ?></th>
-                <th></th>
-            </tr>
-        </tfoot>
-    </table>
+                    echo "<tr>
+                            <td class='fw-bold'>{$venta['id']}</td>
+                            <td>
+                                <i class='fas fa-user-circle text-primary me-2'></i>
+                                {$venta['cliente']}
+                            </td>
+                            <td>
+                                <i class='fa-solid fa-tags text-danger'></i>
+                                {$venta['lote']}
+                            </td>
+                            <td>
+                            <i class='fa-solid fa-scale-unbalanced-flip text-info'></i>
+                            {$venta['peso_vendido']} kg
+                            </td>
+                            <td>
+                            <i class='fa-solid fa-comment-dollar text-success'></i>
+                            $ " . number_format($venta['precio_por_kg'], 2) . "
+                            </td>
+                            <td>
+                            <i class='fa-regular fa-calendar-minus text-primary'></i>
+                            {$venta['fecha_venta']}
+
+                            </td>
+                            <td class='fw-bold text-success'>$ " . number_format($total, 2) . "</td>
+                            <td class='d-flex gap-2 justify-content-center'>
+                                <a href='editar_venta.php?id={$venta['id']}' class='btn btn-warning btn-sm me-1'>
+                                    <i class='fas fa-edit'></i>
+                             </a>
+                             <a href='eliminar_venta.php?id={$venta['id']}' class='btn btn-danger btn-sm' 
+                                 onclick='return confirm(\"¿Eliminar esta venta?\")'>
+                                    <i class='fas fa-trash'></i>
+                                </a>
+                            </td>
+                        </tr>";
+             }
+                ?>
+            </tbody>
+            <tfoot>
+                <tr class="table-secondary text-center">
+                    <th colspan="6"><i class="fa-solid fa-file-export"></i> Total de Ventas:</th>
+                    <th class="fw-bold text-primary">$ <?php echo number_format($totalGeneral, 2); ?></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
 
-<div class="text-center mt-4">
-    <a href="/negocio_cachamas/index.php" class="btn btn-secondary btn-lg w-50">
+<div class="text-center back-btn-container">
+    <a href="/negocio_cachamas/index.php" class="btn btn-secondary btn-lg">
         <i class="fas fa-home me-2"></i>
-        Volver al Inicio
+            Volver al Inicio
     </a>
 </div>
 

@@ -13,70 +13,8 @@ $pagina_actual = basename($_SERVER["PHP_SELF"]);
     <title>Negocio de Cachamas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-       
-            
-        .navbar-nav {
-            border-bottom: 1px solid #dee2e6;
-            margin-bottom: 0;
-        }
-        
-        .navbar-nav .nav-link {
-            position: relative;
-            border: 1px solid transparent;
-            border-top-left-radius: 0.375rem;
-            border-top-right-radius: 0.375rem;
-            margin-right: 2px;
-            margin-bottom: -1px;
-            background-color: transparent;
-            color: #6c757d;
-            transition: all 0.15s ease-in-out;
-            padding: 0.75rem 1rem;
-        }
-        
-        .navbar-nav .nav-link:hover {
-            border-color: #e9ecef #e9ecef #dee2e6;
-            background-color: #f8f9fa;
-            color: #495057;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .navbar-nav .nav-link.active {
-            color: #495057 !important;
-            background-color: #fff;
-            border-color: #dee2e6 #dee2e6 #fff;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-            z-index: 1;
-        }
-        
-        .navbar-nav .nav-link.active:hover {
-            background-color: #fff;
-            border-color: #dee2e6 #dee2e6 #fff;
-            transform: translateY(-1px);
-            box-shadow: 0 -3px 12px rgba(0,0,0,0.15);
-        }
-        
-        
-        .navbar-nav .nav-link.text-danger {
-            color: #dc3545 !important;
-        }
-        
-        .navbar-nav .nav-link.text-danger:hover {
-            color: #c82333 !important;
-            background-color: #f8d7da;
-            border-color: #f5c6cb #f5c6cb #dee2e6;
-        }
-        
-        
-        .navbar-nav .nav-link.text-muted {
-            color: #6c757d !important;
-            background-color: #f8f9fa;
-            border-color: #e9ecef;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-    </style>
+    <link href="/negocio_cachamas/assets/css/style.css" rel="stylesheet">
+    
 </head>
 <body class="bg-light">
 
@@ -99,6 +37,11 @@ $pagina_actual = basename($_SERVER["PHP_SELF"]);
                     <li class="nav-item">
                         <a class="nav-link nav-menu-item <?= ($pagina_actual == 'usuarios.php') ? 'active' : ''; ?>" href="/negocio_cachamas/views/usuarios.php">
                             <i class="fas fa-users me-1"></i>Usuarios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-menu-item <?= ($pagina_actual == 'registrar.php') ? 'active' : ''; ?>" href="/negocio_cachamas/views/registrar.php">
+                            <i class="fa-solid fa-address-card"></i> Registrar
                         </a>
                     </li>
                     <li class="nav-item">

@@ -39,6 +39,18 @@ $colorGanancia = ($gananciaNeta >= 0) ? 'bg-primary' : 'bg-warning';
     <title>Panel de Control Financiero</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/negocio_cachamas/assets/css/style.css" rel="stylesheet">
+    <style>
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
